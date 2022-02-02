@@ -22,7 +22,7 @@ def _is_online(api_key, steam_id): #Steam ID is the 64bit one
 def _update_env(is_online):
     env_file = os.getenv('GITHUB_ENV')
 
-    with open(env_file, "a") as f:
+    with open(env_file, "w") as f:
         if (is_online):
             f.write("notification=false")
         else:
