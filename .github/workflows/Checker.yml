@@ -27,6 +27,15 @@ jobs:
       - name: Run Checker
         run: python checker.py ${{ secrets.STEAM_API_KEY }} ${{ secrets.STEAM_ID }}
           
+      - name: Debugging
+        if: github.event_name == 'workflow_dispatch'
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: markdown
+          message: "Test passed."
+          
       - name: Send Notification
         if: env.notification == 'true'
         uses: appleboy/telegram-action@master
@@ -34,4 +43,4 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           format: markdown
-          message: "Error in ASF or this Action"
+          message: "Error in ASF or this Action."
