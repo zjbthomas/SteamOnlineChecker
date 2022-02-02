@@ -28,7 +28,7 @@ jobs:
         run: python checker.py ${{ secrets.STEAM_API_KEY }} ${{ secrets.STEAM_ID }}
           
       - name: Debugging
-        if: github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'workflow_dispatch' || github.event_name == 'push'
         uses: appleboy/telegram-action@master
         with:
           to: ${{ secrets.TELEGRAM_TO }}
