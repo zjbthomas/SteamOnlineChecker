@@ -1,0 +1,37 @@
+name: Steam Online Checker
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 2,4 * * 0,6"
+    - cron: "0 5 * * 1-5"
+  push:
+    branches:
+      - main
+
+jobs:
+  MainWork:
+    runs-on: ubuntu-latest
+    steps:      
+      - name: Clone Workflow Repository
+        uses: actions/checkout@v2
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.6'
+
+      - name: Init
+        run: echo "notification=true" >> $GITHUB_ENV
+
+      - name: Run Checker
+        run: python checker.py ${{ secrets.STEAM_API_KEY }} ${{ secrets.STEAM_ID }}
+          
+      - name: Send Notification
+        if: env.notification == 'true'
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: markdown
+          message: "Error in ASF or this Action"
