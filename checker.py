@@ -1,10 +1,8 @@
 import urllib.request
 import json
+import sys
 
 import os
-
-API_KEY = "***REMOVED***"
-STEAM_ID = "***REMOVED***"
 
 def _is_online(api_key, steam_id): #Steam ID is the 64bit one
     req_headers = {'User-Agent': 'Python script'}
@@ -13,7 +11,6 @@ def _is_online(api_key, steam_id): #Steam ID is the 64bit one
     response = urllib.request.urlopen(req)
     content = response.read()
     data = json.loads(content.decode('utf8'))
-    print(data)
     if data["response"]["players"][0]["personastate"] == 1:
         return True 
     else:
@@ -28,9 +25,9 @@ def _update_env(is_online):
         else:
             f.write("notification=true")
 
-def main():
-    is_online = _is_online(API_KEY, STEAM_ID)
+def main(api_key, steam_id):
+    is_online = _is_online(api_key, steam_id)
     _update_env(is_online)
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1], sys.argv[2])
