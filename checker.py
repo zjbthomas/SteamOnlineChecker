@@ -11,7 +11,7 @@ def _is_online(api_key, steam_id): #Steam ID is the 64bit one
     response = urllib.request.urlopen(req)
     content = response.read()
     data = json.loads(content.decode('utf8'))
-    if data["response"]["players"][0]["personastate"] == 1:
+    if data["response"]["players"][0]["personastate"] != 0:
         return True 
     else:
         return False
