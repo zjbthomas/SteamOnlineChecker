@@ -1,8 +1,8 @@
 import urllib.request
 import json
-import sys
 
 import os
+import sys
 
 def _is_online(api_key, steam_id): #Steam ID is the 64bit one
     req_headers = {'User-Agent': 'Python script'}
@@ -16,18 +16,15 @@ def _is_online(api_key, steam_id): #Steam ID is the 64bit one
     else:
         return False
 
-def _update_env(is_online):
-    env_file = os.getenv('GITHUB_ENV')
+def _create_msg(is_online):
+    if (is_online):
+        return ''
+    else:
+        return 'Steam not online!'
 
-    with open(env_file, "w") as f:
-        if (is_online):
-            f.write("notification=false")
-        else:
-            f.write("notification=true")
-
-def main(api_key, steam_id):
+def run_steam(api_key, steam_id):
     is_online = _is_online(api_key, steam_id)
-    _update_env(is_online)
+    return _create_msg(is_online)
 
 if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2])
+    print(run_steam(sys.argv[1], sys.argv[2]))

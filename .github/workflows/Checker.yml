@@ -22,10 +22,12 @@ jobs:
           python-version: '3.6'
 
       - name: Init
-        run: echo "notification=true" >> $GITHUB_ENV
+        run: |
+          pip install beautifulsoup4
+          echo "notification=true" >> $GITHUB_ENV
 
       - name: Run Checker
-        run: python checker.py ${{ secrets.STEAM_API_KEY }} ${{ secrets.STEAM_ID }}
+        run: python run.py ${{ secrets.STEAM_API_KEY }} ${{ secrets.STEAM_ID }}
           
       - name: Debugging
         if: github.event_name == 'workflow_dispatch' || github.event_name == 'push'
@@ -43,4 +45,4 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           format: markdown
-          message: "Error in ASF or this Action."
+          message: ${{ env.message }}
