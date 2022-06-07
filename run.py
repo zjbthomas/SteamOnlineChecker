@@ -14,7 +14,7 @@ def _update_env(msg_steam, msg_idm):
     with open(env_file, "w") as f:
         if (flag):
             f.write("notification=true\n")
-            f.write("msg='" + msg + "'\n")
+            f.write("msg=" + msg + "\n")
         else:
             f.write("notification=false\n")
             
