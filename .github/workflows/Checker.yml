@@ -36,7 +36,7 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           format: markdown
-          message: "Test passed."
+          message: ${{ env.message }}
           
       - name: Send Notification
         if: env.notification == 'true'
@@ -46,3 +46,10 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           format: markdown
           message: ${{ env.message }}
+
+      - name: Commit Files
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add history.txt
+          git diff-index --quiet HEAD || git commit -m "Update on $(date +'%a')"

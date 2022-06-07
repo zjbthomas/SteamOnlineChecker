@@ -20,7 +20,7 @@ def _create_msg(is_online):
     if (is_online):
         return ''
     else:
-        return 'Steam not online!'
+        return 'Steam not online! '
 
 def run_steam(api_key, steam_id):
     is_online = _is_online(api_key, steam_id)

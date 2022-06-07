@@ -42,7 +42,7 @@ def _create_msg(version):
 
     # update env
     if (updated):
-        return 'IDM updated to ' + version + '!'
+        return 'IDM updated to ' + version + '! '
     else:
         return ''
 
