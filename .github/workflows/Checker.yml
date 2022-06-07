@@ -25,6 +25,7 @@ jobs:
         run: |
           pip install beautifulsoup4
           echo "notification=true" >> $GITHUB_ENV
+          echo "commit=false" >> $GITHUB_ENV
 
       - name: Run Checker
         run: python run.py ${{ secrets.STEAM_API_KEY }} ${{ secrets.STEAM_ID }}
@@ -48,6 +49,7 @@ jobs:
           message: ${{ env.msg }}
 
       - name: Commit Files
+        if: env.commit == 'true'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
