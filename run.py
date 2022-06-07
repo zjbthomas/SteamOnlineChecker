@@ -13,10 +13,10 @@ def _update_env(msg_steam, msg_idm):
 
     with open(env_file, "w") as f:
         if (flag):
-            f.write("notification=false\n")
-        else:
             f.write("notification=true\n")
-            f.write("message='" + msg + "'\n")
-
+            f.write("msg='" + msg + "'\n")
+        else:
+            f.write("notification=false\n")
+            
 if __name__ == "__main__":
     _update_env(run_steam(sys.argv[1], sys.argv[2]), run_idm())

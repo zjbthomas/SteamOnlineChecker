@@ -36,7 +36,7 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           format: markdown
-          message: ${{ env.message }}
+          message: ${{ env.msg }}
           
       - name: Send Notification
         if: env.notification == 'true'
@@ -45,7 +45,7 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           format: markdown
-          message: ${{ env.message }}
+          message: ${{ env.msg }}
 
       - name: Commit Files
         run: |

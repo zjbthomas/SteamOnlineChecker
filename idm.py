@@ -23,10 +23,11 @@ def _get_latest():
 def _create_msg(version):
     updated = False
 
-    # read file to get last version
     if (version is None):
+        # if version is invalid, force notification
         updated = True
     else:
+        # read file to get last version
         if os.path.exists(FILENAME):
             with open(FILENAME, 'r') as f:
                 content = f.read().strip()
@@ -42,7 +43,10 @@ def _create_msg(version):
 
     # update env
     if (updated):
-        return 'IDM updated to ' + version + '! '
+        if (version is not None):
+            return 'IDM updated to ' + version + '! '
+        else:
+            return 'Invalid IDM version retrieved! '
     else:
         return ''
 
