@@ -25,7 +25,6 @@ jobs:
         run: python steam_language.py ${{ secrets.STEAM_API_KEY }} ${{ secrets.STEAM_ID }}
           
       - name: Commit Files
-        if: env.commit == 'true'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
