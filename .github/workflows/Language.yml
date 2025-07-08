@@ -1,0 +1,33 @@
+name: Steam Games Language Fetcher
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 20 * * 0"
+  push:
+    branches:
+      - main
+
+jobs:
+  MainWork:
+    runs-on: ubuntu-latest
+    steps:      
+      - name: Clone Workflow Repository
+        uses: actions/checkout@v2
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.8'
+
+      - name: Run Fetcher
+        run: python steam_language.py ${{ secrets.STEAM_API_KEY }} ${{ secrets.STEAM_ID }}
+          
+      - name: Commit Files
+        if: env.commit == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add languages.txt
+          git commit -m "Update on $(date +'%Y%m%d')"
+          git push
