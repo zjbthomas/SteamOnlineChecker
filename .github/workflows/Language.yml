@@ -11,6 +11,7 @@ on:
 jobs:
   MainWork:
     runs-on: ubuntu-latest
+    timeout-minutes: 120
     steps:      
       - name: Clone Workflow Repository
         uses: actions/checkout@v2

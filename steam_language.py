@@ -28,8 +28,10 @@ def _fetch_languages(steamids):
             content = response.read()
             data = json.loads(content.decode('utf8'))
 
-            if data:
+            try:
                 f.write(f"{appid},{'Chinese' in data['languages']}\n")
+            except:
+                print(f"Error processing appid {appid}: {data}")
 
 def run_steam(api_key, steam_id):
     wishlist = _fetch_wishlist(api_key, steam_id)
