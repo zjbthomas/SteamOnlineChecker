@@ -35,7 +35,7 @@ def _check_supported_languages(wishlist, languages):
                 if ("data" in app_data):
                     supported_languages = app_data["data"]["supported_languages"]
 
-                    f.write(f"{appid},{"Chinese" in supported_languages}\n")
+                    f.write(f"{appid},{'Chinese' in supported_languages}\n")
     
 def run_steam(api_key, steam_id):
     wishlist = _fetch_wishlist(api_key, steam_id)
