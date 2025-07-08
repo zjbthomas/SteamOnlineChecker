@@ -26,9 +26,9 @@ def _fetch_languages(steamids):
             req = urllib.request.Request(url, data=None, headers=req_headers, origin_req_host=None)
             response = urllib.request.urlopen(req)
             content = response.read()
-            data = json.loads(content.decode('utf8'))
-
+            
             try:
+                data = json.loads(content.decode('utf8'))
                 f.write(f"{appid},{'Chinese' in data['languages']}\n")
             except:
                 print(f"Error processing appid {appid}: {data}")
