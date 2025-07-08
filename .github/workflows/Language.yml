@@ -3,7 +3,7 @@ name: Steam Games Language Fetcher
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 20 1 * *"
+    - cron: "0 20 * * 0"
   push:
     branches:
       - main
