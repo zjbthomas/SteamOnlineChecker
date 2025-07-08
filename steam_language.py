@@ -1,8 +1,8 @@
 import urllib.request
 import json
 
-import os
 import sys
+import time
 
 FILENAME = 'languages.txt'
 
@@ -19,18 +19,17 @@ def _fetch_wishlist(api_key, steam_id): #Steam ID is the 64bit one
 def _fetch_languages(steamids):
     with open(FILENAME, 'w') as f:
         for appid in steamids:
+            time.sleep(1) # Pause for 1 second
+
             req_headers = {'User-Agent': 'Python script'}
-            url = "https://store.steampowered.com/api/appdetails?appids=" + str(appid) + "&l=english"
+            url = "https://steamspy.com/api.php?request=appdetails&appid=" + str(appid)
             req = urllib.request.Request(url, data=None, headers=req_headers, origin_req_host=None)
             response = urllib.request.urlopen(req)
             content = response.read()
             data = json.loads(content.decode('utf8'))
 
-            if data[str(appid)]['success']:
-                app_data = data[str(appid)]
-                supported_languages = app_data["data"]["supported_languages"]
-
-                f.write(f"{appid},{'Chinese' in supported_languages}\n")
+            if data:
+                f.write(f"{appid},{'Chinese' in data['languages']}\n")
 
 def run_steam(api_key, steam_id):
     wishlist = _fetch_wishlist(api_key, steam_id)
