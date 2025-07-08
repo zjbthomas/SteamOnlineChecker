@@ -20,7 +20,7 @@ def _fetch_languages(steamids):
     with open(FILENAME, 'w') as f:
         for appid in steamids:
             req_headers = {'User-Agent': 'Python script'}
-            url = "https://store.steampowered.com/api/appdetails?appids=" + appid + "&l=english"
+            url = "https://store.steampowered.com/api/appdetails?appids=" + str(appid) + "&l=english"
             req = urllib.request.Request(url, data=None, headers=req_headers, origin_req_host=None)
             response = urllib.request.urlopen(req)
             content = response.read()
@@ -34,7 +34,7 @@ def _fetch_languages(steamids):
 
 def run_steam(api_key, steam_id):
     wishlist = _fetch_wishlist(api_key, steam_id)
-    
+
     _fetch_languages(wishlist)
 
 if __name__ == "__main__":
