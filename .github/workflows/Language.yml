@@ -22,7 +22,7 @@ jobs:
           python-version: '3.8'
 
       - name: Run Fetcher
-        run: python steam_language.py ${{ secrets.STEAM_API_KEY }} ${{ secrets.STEAM_ID }}
+        run: python steam_language.py ${{ github.event_name }} ${{ secrets.STEAM_API_KEY }} ${{ secrets.STEAM_ID }}
           
       - name: Commit Files
         run: |

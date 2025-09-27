@@ -57,7 +57,11 @@ def _check_expiration(existing_games):
 
     return keep_games
 
-def run_steam(api_key, steam_id):
+def run_steam(github_event, api_key, steam_id):
+    if (github_event == "workflow_dispatch" or github_event == "push"):
+        if (os.path.exists(FILENAME)):
+            os.remove(FILENAME)
+
     existing_games = _read_existing_games()
 
     keep_games = _check_expiration(existing_games)
@@ -78,4 +82,4 @@ def run_steam(api_key, steam_id):
     fout.close()
 
 if __name__ == "__main__":
-    run_steam(sys.argv[1], sys.argv[2])
+    run_steam(sys.argv[1], sys.argv[2], sys.argv[3])
